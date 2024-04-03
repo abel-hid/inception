@@ -19,8 +19,6 @@ services:
     container_name: wordpress
     image: wordpress
     build: ./requirements/wordpress
-    ports:
-      - "80:80"
     volumes:
       - /$HOME/data/wordpress:/var/www/html
     depends_on:
