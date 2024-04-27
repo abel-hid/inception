@@ -1,43 +1,58 @@
-version: '3.8'
-
-services:
-  nginx:
-    container_name: nginx
-    image: nginx
-    build: ./requirements/nginx
-    ports:
-      - "443:443"
-    volumes:
-      - /$HOME/data/wordpress:/var/www/html
-    depends_on:
-      - wordpress
-    networks:
-      - inception-network
-    restart: always
-
-  wordpress:
-    container_name: wordpress
-    image: wordpress
-    build: ./requirements/wordpress
-    volumes:
-      - /$HOME/data/wordpress:/var/www/html
-    depends_on:
-      - mariadb
-    networks:
-      - inception-network
-    restart: always
-
-  mariadb:
-    container_name: mariadb
-    image: mariadb
-    build: ./requirements/mariadb
-    volumes:
-      - /$HOME/data/mariadb:/var/lib/mysql
-    networks:
-      - inception-network
-    restart: always
+version: "3.8"
 
 networks:
   inception-network:
+    driver: bridge
     name: inception-network
-  
+
+volumes:
+  wp:
+    driver: local
+    name: wp
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abel-hid/data/wordpress
+  db:
+    driver: local
+    name: db
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abel-hid/data/mariadb
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - inception-network
+    restart: unless-stopped
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress/.
+    env_file:
+      - .env
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - inception-network
+    restart: always
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx/.
+    env_file:
+      - .env
+    ports:
+      - "443:443"
+    volumes:
+      - wp:/var/www/html
+    restart: always
+    networks:
+      - inception-network
