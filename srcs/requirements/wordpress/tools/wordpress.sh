@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update PHP-FPM pool configuration to listen on port 9000
-sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
+sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" "/etc/php/7.4/fpm/pool.d/www.conf"
 
 # Change ownership and permissions of WordPress files
 chown -R www-data:www-data /var/www/*
