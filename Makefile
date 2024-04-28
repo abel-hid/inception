@@ -1,7 +1,10 @@
 .PHONY: all build up down clean re
 
+
+
 all: build
-	@echo "Creating data directories..."
+
+init: all
 	@mkdir -p /home/abel-hid/data/wordpress
 	@mkdir -p /home/abel-hid/data/mariadb
 

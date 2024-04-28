@@ -1,19 +1,13 @@
-FROM debian:bullseye
+FROM debian:buster
 
-# Install MariaDB server
-RUN apt-get update && apt-get install -y mariadb-server && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y mariadb-server
 
-# Copy MariaDB configuration
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-
-# Copy tools (if needed)
-COPY ./tools/initial_db.sql /var/www/initial_db.sql
-
-# Expose port 3306
 EXPOSE 3306
 
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools/initial_db.sql /etc/mysql/initial_db.sql
 
-# Set default command to start mysqld
-CMD ["mysqld"]
+COPY mysql.sh /var/www/
+RUN chmod +x /var/www/mysql.sh
+
+CMD ["/var/www/mysql.sh"]
