@@ -31,7 +31,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         wp core download --allow-root
         
         # Generate wp-config.php file
-        # Generate wp-config.php file   
         wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --dbhost="$MYSQL_HOSTNAME" --dbprefix=wp_ --allow-root --force
         # Install WordPress
         wp core install --allow-root --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_ADMIN_LOGIN" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL"

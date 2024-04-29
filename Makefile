@@ -4,12 +4,11 @@
 
 all: build
 
-init: all
+init:
 	@mkdir -p /home/abel-hid/data/wordpress
 	@mkdir -p /home/abel-hid/data/mariadb
 
-build: clean
-	@echo "Building images..."
+build: clean init
 	@cd srcs && docker compose up --build
 
 up:

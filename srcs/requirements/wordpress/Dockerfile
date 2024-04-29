@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get -y install php7.3 php-mysqli php-fpm wget sendmail
+RUN apt-get update && apt-get -y install php7.4 php-mysqli php-fpm wget
 
 EXPOSE 9000
 
@@ -9,4 +9,4 @@ COPY ./tools /var/www/
 
 RUN chmod +x /var/www/wordpress.sh
 
-ENTRYPOINT [ "/var/www/wordpress.sh" ]
+CMD ["/var/www/wordpress.sh"]
