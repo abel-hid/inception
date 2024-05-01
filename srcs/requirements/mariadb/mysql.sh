@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start MariaDB service
-service mysql start
+service mariadb start &&
 
 # Wait for MariaDB to start
 sleep 5
