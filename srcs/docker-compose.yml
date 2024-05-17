@@ -12,14 +12,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/abel-hid/data/wordpress
+      device: /Users/abel-hid/goinfre/data/wordpress
   db:
     driver: local
     name: db
     driver_opts:
       type: none
       o: bind
-      device: /home/abel-hid/data/mariadb
+      device: /Users/abel-hid/goinfre/data/mariadb
 
 services:
   mariadb:

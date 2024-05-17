@@ -5,8 +5,8 @@
 all: build
 
 init:
-	@mkdir -p /home/abel-hid/data/wordpress
-	@mkdir -p /home/abel-hid/data/mariadb
+	@mkdir -p /Users/abel-hid/goinfre/data/wordpress
+	@mkdir -p /Users/abel-hid/goinfre/data/mariadb
 
 build: clean init
 	@cd srcs && docker compose up --build
@@ -21,6 +21,6 @@ clean:
 	@echo "Cleaning images..."
 	@cd srcs && docker compose down --rmi all --volumes --remove-orphans
 	@docker system prune -af
-	@rm -rf /home/abel-hid/data
+	@rm -rf /Users/abel-hid/goinfre/data
 
 re: clean all
