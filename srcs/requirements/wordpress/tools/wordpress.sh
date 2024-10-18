@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Update PHP-FPM pool configuration to listen on port 9000
-sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" "/etc/php/7.4/fpm/pool.d/www.conf"
-
-# Change ownership and permissions of WordPress files
-chown -R www-data:www-data /var/www/*
-chmod -R 755 /var/www/*
-
 # Create directory for PHP-FPM socket if it doesn't exist
 mkdir -p /run/php/
 
@@ -27,7 +20,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     
     # Check if WordPress files are already present
     if [ ! -d /var/www/html/wp-admin ]; then
-        # Download WordPress core
+        # Download WordPress core   
         wp core download --allow-root
         
         # Generate wp-config.php file
