@@ -6,4 +6,3 @@ COPY ./tools/nginx.sh /var/www/
 RUN chmod +x /var/www/nginx.sh
 EXPOSE 443
 CMD ["/var/www/nginx.sh"]
--
