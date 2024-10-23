@@ -18,7 +18,6 @@ down:
 	@cd srcs && docker compose down
 
 clean:
-	@echo "Cleaning images..."
 	@cd srcs && docker compose down --rmi all --volumes --remove-orphans
 	@docker system prune -af
 	@rm -rf /home/abel-hid/data

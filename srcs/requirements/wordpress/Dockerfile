@@ -1,5 +1,5 @@
 FROM debian:bullseye
-RUN apt-get update && apt-get -y install php7.4 php-mysqli php-fpm wget
+RUN apt update && apt -y install php7.4 php-mysqli php-fpm wget sendmail
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./tools /var/www/
 EXPOSE 9000
