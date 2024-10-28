@@ -4,23 +4,26 @@ mkdir -p /run/mysqld
 touch /run/mysqld/mysqld.sock
 chown -R mysql:mysql /run/mysqld
 
-mysqld_safe &
+if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
+    echo "Database $DB_NAME does not exist. Initializing..."
 
-# Wait for MariaDB to fully start
-sleep 5
+    mysqld_safe &
+    sleep 5
 
-OUTPUT_FILE="/etc/mysql/init.sql"
-touch $OUTPUT_FILE
+    OUTPUT_FILE="/etc/mysql/init.sql"
+    touch $OUTPUT_FILE
 
-echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" > $OUTPUT_FILE
-echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';" >> $OUTPUT_FILE
-echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';" >> $OUTPUT_FILE
-echo "FLUSH PRIVILEGES;" >> $OUTPUT_FILE
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" >> $OUTPUT_FILE
+    echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" > $OUTPUT_FILE
+    echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';" >> $OUTPUT_FILE
+    echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';" >> $OUTPUT_FILE
+    echo "FLUSH PRIVILEGES;" >> $OUTPUT_FILE
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" >> $OUTPUT_FILE
 
-mysql -u root < $OUTPUT_FILE
+    mysql -u root < $OUTPUT_FILE
+    mysqladmin -u root -p"$MYSQL_ROOT_PASSWORD" shutdown
+    rm -f $OUTPUT_FILE
+else
+    echo "Database $DB_NAME already exists. Skipping setup."
+fi
 
-mysqladmin -u root -p"$MYSQL_ROOT_PASSWORD" shutdown
-
-# Start MariaDB in the foreground
 mysqld_safe
