@@ -26,18 +26,18 @@ services:
     hostname: mariadb
     image: mariadb
     container_name: mariadb
-    build: ./requirements/mariadb
     env_file:
       - .env
+    build: ./requirements/mariadb
     volumes:
       - db:/var/lib/mysql
     networks:
       - inception-network
-    restart: unless-stopped
+    restart: always
   wordpress:
     hostname: wordpress
-    container_name: wordpress
     image: wordpress
+    container_name: wordpress
     build: ./requirements/wordpress/.
     env_file:
       - .env
