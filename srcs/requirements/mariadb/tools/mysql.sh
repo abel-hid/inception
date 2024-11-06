@@ -1,13 +1,12 @@
 #!/bin/bash
 
 mkdir -p /run/mysqld
-touch /run/mysqld/mysqld.sock
 chown -R mysql:mysql /run/mysqld
-
+chown -R mysql:mysql /var/lib/mysql
 if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
     echo "Database $DB_NAME does not exist. Initializing..."
 
-    mysqld_safe &
+    mysqld &
     sleep 5
 
     OUTPUT_FILE="/etc/mysql/init.sql"
@@ -26,4 +25,4 @@ else
     echo "Database $DB_NAME already exists. Skipping setup."
 fi
 
-mysqld_safe
+mysqld
