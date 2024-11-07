@@ -5,7 +5,6 @@ chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
     echo "Database $DB_NAME does not exist. Initializing..."
-
     mysqld &
     sleep 5
 
