@@ -9,21 +9,17 @@ This project is a **System Administration** exercise designed to expand your und
 
 ## Table of Contents
 
-1. [Preamble](#preamble)
-2. [Introduction](#introduction)
-3. [General Guidelines](#general-guidelines)
-4. [Mandatory Part](#mandatory-part)
+1. [Introduction](#introduction)
+2. [General Guidelines](#general-guidelines)
+3. [Mandatory Part](#mandatory-part)
    1. [Infrastructure Overview](#infrastructure-overview)
    2. [Services Setup](#services-setup)
-5. [Prohibited Practices](#prohibited-practices)
-6. [Directory Structure](#directory-structure)
+4. [Prohibited Practices](#prohibited-practices)
+5. [Directory Structure](#directory-structure)
 
 ---
 
-## Preamble
-This section is reserved for additional introductory information or guidelines if needed.
 
----
 
 ## Introduction
 The purpose of this project is to familiarize yourself with **Docker** and its related technologies. The goal is to create and configure a set of Docker containers for a fully functional web infrastructure. You'll be working with **NGINX**, **WordPress**, and **MariaDB**, leveraging **Docker Compose** for orchestration.
